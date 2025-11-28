@@ -5,7 +5,7 @@ CREATE TYPE draft_action_type AS ENUM ('pick', 'ban');
 CREATE TYPE item_slot_type AS ENUM ('inventory', 'backpack', 'neutral');
 CREATE TYPE rating_type AS ENUM ('solo', 'party', 'pro');
 CREATE TYPE user_role AS ENUM ('player_user', 'analyst', 'admin');
-CREATE TYPE log_type AS ENUM ('update', 'insert', 'select', 'error');
+CREATE TYPE log_type AS ENUM ('update', 'insert', 'delete', 'error');
 
 
 -- Логи
