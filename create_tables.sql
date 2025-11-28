@@ -5,6 +5,18 @@ CREATE TYPE draft_action_type AS ENUM ('pick', 'ban');
 CREATE TYPE item_slot_type AS ENUM ('inventory', 'backpack', 'neutral');
 CREATE TYPE rating_type AS ENUM ('solo', 'party', 'pro');
 CREATE TYPE user_role AS ENUM ('player_user', 'analyst', 'admin');
+CREATE TYPE log_type AS ENUM ('update', 'insert', 'select', 'error');
+
+
+-- Логи
+
+CREATE TABLE Logs( 
+  log_id SERIAL PRIMARY KEY,
+  time_change TIMESTAMPTZ DEFAULT NOW(),
+  type_of_log log_type NOT NULL,
+  changed_table VARCHAR(25) NOT NULL,
+  changed_by user_role 
+);
 
 -- Справочники / контекст
 
