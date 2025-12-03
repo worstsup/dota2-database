@@ -5,8 +5,16 @@ CREATE TYPE draft_action_type AS ENUM ('pick', 'ban');
 CREATE TYPE item_slot_type AS ENUM ('inventory', 'backpack', 'neutral');
 CREATE TYPE rating_type AS ENUM ('solo', 'party', 'pro');
 CREATE TYPE user_role AS ENUM ('player_user', 'analyst', 'admin');
-
+CREATE TYPE log_type AS ENUM ('update', 'insert', 'delete', 'error');
 -- Справочники / контекст
+
+CREATE TABLE Logs(
+  log_id SERIAL PRIMARY KEY,
+  time_change TIMESTAMPTZ DEFAULT NOW(),
+  type_of_log log_type NOT NULL,
+  changed_table VARCHAR(25) NOT NULL,
+  changed_by TEXT
+);
 
 CREATE TABLE Region (
     region_id INT PRIMARY KEY,
@@ -193,3 +201,120 @@ CREATE TABLE RatingSnapshot (
     snapshot_time TIMESTAMPTZ NOT NULL,
     CONSTRAINT uq_rating_snapshot UNIQUE (player_id, rating_type, snapshot_time)
 );
+
+CREATE OR REPLACE FUNCTION log_operation()
+RETURNS TRIGGER AS $$
+DECLARE
+    operation_log_type log_type;
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        operation_log_type := 'insert';
+    ELSIF TG_OP = 'UPDATE' THEN
+        operation_log_type := 'update';
+    ELSIF TG_OP = 'DELETE' THEN
+        operation_log_type := 'delete';
+    ELSE
+        operation_log_type := 'error';
+    END IF;
+
+    INSERT INTO Logs (type_of_log, changed_table, changed_by)
+    VALUES (operation_log_type, TG_TABLE_NAME, current_user);
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER log_useraccount_operations
+    AFTER INSERT OR UPDATE OR DELETE ON UserAccount
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_favoriteplayer_operations
+    AFTER INSERT OR UPDATE OR DELETE ON FavoritePlayer
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_favoriteteam_operations
+    AFTER INSERT OR UPDATE OR DELETE ON FavoriteTeam
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_player_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Player
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_proteam_operations
+    AFTER INSERT OR UPDATE OR DELETE ON ProTeam
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_teammembership_operations
+    AFTER INSERT OR UPDATE OR DELETE ON TeamMembership
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_match_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Match
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_matchteam_operations
+    AFTER INSERT OR UPDATE OR DELETE ON MatchTeam
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_matchplayer_operations
+    AFTER INSERT OR UPDATE OR DELETE ON MatchPlayer
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_matchheropickban_operations
+    AFTER INSERT OR UPDATE OR DELETE ON MatchHeroPickBan
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_matchplayeritem_operations
+    AFTER INSERT OR UPDATE OR DELETE ON MatchPlayerItem
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_hero_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Hero
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_role_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Role
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_herorole_operations
+    AFTER INSERT OR UPDATE OR DELETE ON HeroRole
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_item_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Item
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_region_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Region
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_gamemode_operations
+    AFTER INSERT OR UPDATE OR DELETE ON GameMode
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_patch_operations
+    AFTER INSERT OR UPDATE OR DELETE ON Patch
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
+
+CREATE TRIGGER log_ratingsnapshot_operations
+    AFTER INSERT OR UPDATE OR DELETE ON RatingSnapshot
+    FOR EACH ROW
+  EXECUTE FUNCTION log_operation();
