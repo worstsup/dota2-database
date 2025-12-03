@@ -6,21 +6,6 @@ CREATE TYPE item_slot_type AS ENUM ('inventory', 'backpack', 'neutral');
 CREATE TYPE rating_type AS ENUM ('solo', 'party', 'pro');
 CREATE TYPE user_role AS ENUM ('player_user', 'analyst', 'admin');
 CREATE TYPE log_type AS ENUM ('update', 'insert', 'delete', 'error');
-<<<<<<< HEAD
-=======
-
-
--- Логи
-
-CREATE TABLE Logs( 
-  log_id SERIAL PRIMARY KEY,
-  time_change TIMESTAMPTZ DEFAULT NOW(),
-  type_of_log log_type NOT NULL,
-  changed_table VARCHAR(25) NOT NULL,
-  changed_by user_role 
-);
-
->>>>>>> 944b32d375586018792a3679bd8bdc2a1c0c7965
 -- Справочники / контекст
 
 CREATE TABLE Logs(
@@ -216,7 +201,6 @@ CREATE TABLE RatingSnapshot (
     snapshot_time TIMESTAMPTZ NOT NULL,
     CONSTRAINT uq_rating_snapshot UNIQUE (player_id, rating_type, snapshot_time)
 );
-<<<<<<< HEAD
 
 CREATE OR REPLACE FUNCTION log_operation()
 RETURNS TRIGGER AS $$
@@ -334,5 +318,3 @@ CREATE TRIGGER log_ratingsnapshot_operations
     AFTER INSERT OR UPDATE OR DELETE ON RatingSnapshot
     FOR EACH ROW
   EXECUTE FUNCTION log_operation();
-=======
->>>>>>> 944b32d375586018792a3679bd8bdc2a1c0c7965
