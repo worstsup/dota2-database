@@ -200,3 +200,21 @@ $$;
 
 SELECT * FROM get_hero_winrate(11);  -- Процент побед у Shadow Fiend
 
+-- Фиксируем доступ к аналитическим функциям
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
+
+GRANT EXECUTE ON FUNCTION get_hero_info(INT)
+TO admin, analyst, player;
+
+GRANT EXECUTE ON FUNCTION get_match_info(BIGINT)
+TO admin, analyst, player;
+
+GRANT EXECUTE ON FUNCTION get_player_last_n_matches(BIGINT, INT)
+TO admin, analyst, player;
+
+GRANT EXECUTE ON FUNCTION get_player_winrate(BIGINT)
+TO admin, analyst, player;
+
+GRANT EXECUTE ON FUNCTION get_hero_winrate(INT)
+TO admin, analyst, player;
+

@@ -107,6 +107,59 @@ INSERT INTO Hero (hero_id, name, primary_attribute, attack_type, complexity) VAL
 (49, 'Huskar', 'Strength', 'Ranged', 2),
 (50, 'Invoker', 'Intelligence', 'Ranged', 3);
 
+-- Роли героев, priority = 1 обозначает основную роль
+INSERT INTO HeroRole (hero_id, role_id, priority) VALUES
+(1, 1, 1),
+(2, 3, 1),
+(3, 5, 1), (3, 4, 2),
+(4, 1, 1), (4, 2, 2),
+(5, 5, 1), (5, 4, 2),
+(6, 1, 1),
+(7, 4, 1), (7, 3, 2),
+(8, 1, 1),
+(9, 4, 1), (9, 2, 2),
+(10, 1, 1), (10, 2, 2),
+(11, 2, 1), (11, 1, 2),
+(12, 1, 1),
+(13, 2, 1), (13, 3, 2),
+(14, 4, 1), (14, 3, 2),
+(15, 3, 1), (15, 2, 2),
+(16, 3, 1), (16, 4, 2),
+(17, 2, 1),
+(18, 1, 1),
+(19, 2, 1), (19, 4, 2),
+(20, 4, 1), (20, 5, 2),
+(21, 2, 1), (21, 4, 2),
+(22, 2, 1), (22, 4, 2),
+(23, 2, 1), (23, 3, 2),
+(24, 2, 1), (24, 1, 2),
+(25, 4, 1), (25, 5, 2),
+(26, 5, 1), (26, 4, 2),
+(27, 1, 1),
+(28, 3, 1), (28, 2, 2),
+(29, 5, 1), (29, 4, 2),
+(30, 3, 1), (30, 4, 2),
+(31, 3, 1), (31, 1, 2),
+(32, 1, 1),
+(33, 2, 1), (33, 3, 2),
+(34, 5, 1),
+(35, 1, 1), (35, 4, 2),
+(36, 3, 1),
+(37, 2, 1),
+(38, 1, 1),
+(39, 3, 1), (39, 4, 2),
+(40, 1, 1),
+(41, 1, 1), (41, 3, 2),
+(42, 2, 1),
+(43, 2, 1), (43, 3, 2),
+(44, 2, 1),
+(45, 3, 1),
+(46, 3, 1), (46, 4, 2),
+(47, 1, 1),
+(48, 4, 1), (48, 5, 2),
+(49, 2, 1), (49, 1, 2),
+(50, 2, 1);
+
 -- Игроки
 
 INSERT INTO Player (player_id, nickname, country_code, created_at, is_pro) VALUES
@@ -782,157 +835,157 @@ FROM MatchPlayer WHERE match_id = 1 AND player_id = 14;
 -- MATCH 2 — DRAFT
 -- ===========================
 INSERT INTO MatchHeroPickBan (match_id, hero_id, team_side, action_type, action_order) VALUES
-    (2, 18, 'radiant', 'pick', 1), -- Sven
-    (2, 41, 'radiant', 'pick', 2), -- Wraith King
-    (2, 21, 'radiant', 'pick', 3), -- Windranger
-    (2, 29, 'radiant', 'pick', 4), -- Dazzle
-    (2, 5,  'radiant', 'pick', 5), -- Crystal Maiden
+    (2, 33, 'radiant', 'pick', 1), -- Viper
+    (2, 17, 'radiant', 'pick', 2), -- Storm Spirit
+    (2, 14, 'radiant', 'pick', 3), -- Pudge
+    (2, 5,  'radiant', 'pick', 4), -- Crystal Maiden
+    (2, 40, 'radiant', 'pick', 5), -- Faceless Void
 
-    (2, 40, 'dire', 'pick', 6),    -- Faceless Void
-    (2, 22, 'dire', 'pick', 7),    -- Zeus
-    (2, 36, 'dire', 'pick', 8),    -- Bristleback
-    (2, 31, 'dire', 'pick', 9),    -- Nature's Prophet
-    (2, 48, 'dire', 'pick', 10);   -- Shadow Demon
+    (2, 32, 'dire', 'pick', 6),    -- Phantom Assassin
+    (2, 30, 'dire', 'pick', 7),    -- Clockwerk
+    (2, 21, 'dire', 'pick', 8),    -- Windranger
+    (2, 26, 'dire', 'pick', 9),    -- Witch Doctor
+    (2, 11, 'dire', 'pick', 10);   -- Shadow Fiend
 
--- Sven (player_id = 6)
+-- Viper (player_id = 31)
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 47, 600, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 31;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 111, 1400, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 31;
 
 
--- Wraith King (player_id = 7)
+-- Storm Spirit (player_id = 35)
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 65, 900, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 7;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 35;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 120, 1500, 'neutral'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 35;
+
+
+-- Pudge (player_id = 57)
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 48, 500, 'inventory'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 57;
+
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 105, 1300, 'neutral'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 57;
+
+
+-- Crystal Maiden (player_id = 66)
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 49, 600, 'inventory'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 66;
+
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 118, 1200, 'neutral'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 66;
+
+
+-- Faceless Void (player_id = 69)
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 33, 200, 'inventory'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 69;
+
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 107, 1100, 'neutral'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 69;
+
+
+-- Phantom Assassin (player_id = 6)
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 48, 600, 'inventory'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 6;
+
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 126, 1500, 'neutral'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 6;
+
+
+-- Clockwerk (player_id = 7)
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 72, 1400, 'inventory'
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 7;
+
+INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
+SELECT match_player_id, 123, 1500, 'neutral'
 FROM MatchPlayer WHERE match_id = 2 AND player_id = 7;
 
 
 -- Windranger (player_id = 17)
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 48, 500, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 17;
-
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 105, 1300, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 17;
-
-
--- Dazzle (player_id = 8)
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 49, 600, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 8;
-
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 118, 1200, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 8;
-
-
--- Crystal Maiden (player_id = 20)
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 33, 200, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 20;
-
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 107, 1100, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 20;
-
-
--- Faceless Void (player_id = 11)
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 48, 600, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 11;
-
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 126, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 11;
-
-
--- Zeus (player_id = 13)
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 72, 1400, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 13;
-
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
-SELECT match_player_id, 123, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 13;
-
-
--- Bristleback (player_id = 24)
-INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 90, 800, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 24;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 17;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 121, 1400, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 24;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 17;
 
 
--- Nature's Prophet (player_id = 10)
+-- Witch Doctor (player_id = 8)
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 52, 700, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 10;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 8;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 103, 1300, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 10;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 8;
 
 
--- Shadow Demon (player_id = 14)
+-- Shadow Fiend (player_id = 20)
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 49, 620, 'inventory'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 14;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 20;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 118, 1200, 'neutral'
-FROM MatchPlayer WHERE match_id = 2 AND player_id = 14;
+FROM MatchPlayer WHERE match_id = 2 AND player_id = 20;
 
 INSERT INTO MatchHeroPickBan (match_id, hero_id, team_side, action_type, action_order) VALUES
-    (3, 12, 'radiant', 'pick', 1),
-    (3, 19, 'radiant', 'pick', 2),
-    (3, 27, 'radiant', 'pick', 3),
-    (3, 44, 'radiant', 'pick', 4),
-    (3, 30, 'radiant', 'pick', 5),
+    (3, 11, 'radiant', 'pick', 1),
+    (3, 38, 'radiant', 'pick', 2),
+    (3, 45, 'radiant', 'pick', 3),
+    (3, 5,  'radiant', 'pick', 4),
+    (3, 24, 'radiant', 'pick', 5),
 
-    (3, 2,  'dire', 'pick', 6),
-    (3, 14, 'dire', 'pick', 7),
-    (3, 33, 'dire', 'pick', 8),
-    (3, 37, 'dire', 'pick', 9),
-    (3, 47, 'dire', 'pick', 10);
+    (3, 13, 'dire', 'pick', 6),
+    (3, 7,  'dire', 'pick', 7),
+    (3, 39, 'dire', 'pick', 8),
+    (3, 14, 'dire', 'pick', 9),
+    (3, 32, 'dire', 'pick', 10);
 
 
-
-INSERT INTO MatchHeroPickBan (match_id, hero_id, team_side, action_type, action_order) VALUES
-    (4, 1, 'radiant', 'pick', 1),
-    (4, 3, 'radiant', 'pick', 2),
-    (4, 9, 'radiant', 'pick', 3),
-    (4, 31, 'radiant', 'pick', 4),
-    (4, 42, 'radiant', 'pick', 5),
-
-    (4, 8, 'dire', 'pick', 6),
-    (4, 14, 'dire', 'pick', 7),
-    (4, 39, 'dire', 'pick', 8),
-    (4, 24, 'dire', 'pick', 9),
-    (4, 49, 'dire', 'pick', 10);
 
 INSERT INTO MatchHeroPickBan (match_id, hero_id, team_side, action_type, action_order) VALUES
-    (5, 50, 'radiant', 'pick', 1),
-    (5, 46, 'radiant', 'pick', 2),
-    (5, 35, 'radiant', 'pick', 3),
-    (5, 1,  'radiant', 'pick', 4),
-    (5, 20, 'radiant', 'pick', 5),
+    (4, 29, 'radiant', 'pick', 1),
+    (4, 37, 'radiant', 'pick', 2),
+    (4, 15, 'radiant', 'pick', 3),
+    (4, 47, 'radiant', 'pick', 4),
+    (4, 18, 'radiant', 'pick', 5),
 
-    (5, 12, 'dire', 'pick', 6),
-    (5, 32, 'dire', 'pick', 7),
-    (5, 17, 'dire', 'pick', 8),
-    (5, 38, 'dire', 'pick', 9),
-    (5, 29, 'dire', 'pick', 10);
+    (4, 40, 'dire', 'pick', 6),
+    (4, 22, 'dire', 'pick', 7),
+    (4, 49, 'dire', 'pick', 8),
+    (4, 26, 'dire', 'pick', 9),
+    (4, 43, 'dire', 'pick', 10);
+
+INSERT INTO MatchHeroPickBan (match_id, hero_id, team_side, action_type, action_order) VALUES
+    (5, 13, 'radiant', 'pick', 1),
+    (5, 11, 'radiant', 'pick', 2),
+    (5, 45, 'radiant', 'pick', 3),
+    (5, 5,  'radiant', 'pick', 4),
+    (5, 32, 'radiant', 'pick', 5),
+
+    (5, 17, 'dire', 'pick', 6),
+    (5, 28, 'dire', 'pick', 7),
+    (5, 23, 'dire', 'pick', 8),
+    (5, 36, 'dire', 'pick', 9),
+    (5, 39, 'dire', 'pick', 10);
 
 -- Пользователи аналитической платформы
 INSERT INTO UserAccount (email, password_hash, display_name, role, created_at, last_login_at, player_id) VALUES
@@ -953,93 +1006,93 @@ INSERT INTO UserAccount (email, password_hash, display_name, role, created_at, l
 -- Match 3, Radiant
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 47, 500, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 25;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 111, 1200, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 25;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 65, 700, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 7;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 26;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 120, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 7;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 26;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 48, 600, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 17;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 27;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 103, 900, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 17;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 27;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 49, 400, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 8;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 30;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 118, 1100, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 8;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 30;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 33, 200, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 20;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 28;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 106, 900, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 20;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 28;
 
 
 -- Match 3, Dire
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 48, 630, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 11;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 2;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 126, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 11;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 2;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 90, 850, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 13;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 3;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 115, 1300, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 13;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 3;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 48, 590, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 24;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 4;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 136, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 24;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 4;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 49, 500, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 10;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 5;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 118, 1200, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 10;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 5;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 36, 300, 'inventory'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 14;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 10;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 105, 1100, 'neutral'
-FROM MatchPlayer WHERE match_id = 3 AND player_id = 14;
+FROM MatchPlayer WHERE match_id = 3 AND player_id = 10;
 
 
 
@@ -1066,39 +1119,39 @@ FROM MatchPlayer WHERE match_id = 4 AND player_id = 7;
 -- Match 5
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 48, 500, 'inventory'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 21;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 116, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 6;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 21;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 49, 450, 'inventory'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 7;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 22;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 121, 1400, 'neutral'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 7;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 22;
 
 
 -- Match 5, Dire
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 48, 520, 'inventory'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 11;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 26;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 126, 1500, 'neutral'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 11;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 26;
 
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 49, 540, 'inventory'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 13;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 27;
 
 INSERT INTO MatchPlayerItem (match_player_id, item_id, acquired_time_sec, slot_type)
 SELECT match_player_id, 103, 900, 'neutral'
-FROM MatchPlayer WHERE match_id = 5 AND player_id = 13;
+FROM MatchPlayer WHERE match_id = 5 AND player_id = 27;
 
 
 -- Избранные игроки
